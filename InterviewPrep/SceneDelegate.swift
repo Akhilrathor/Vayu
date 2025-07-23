@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -34,6 +35,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //            window.rootViewController = UserViewController()
 //            self.window = window
 //            window.makeKeyAndVisible()
+        
+//        guard let windowScene = scene as? UIWindowScene else { return }
+//                
+//                // Create a new window
+//        window = UIWindow(windowScene: windowScene)
+//                
+//                // Create the SwiftUI view
+//                let contentView = TaskView()
+//                
+//                // Create a hosting controller
+//                let hostingController = UIHostingController(rootView: contentView)
+//                
+//                // Set the root view controller
+//                window?.rootViewController = hostingController
+//                window?.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

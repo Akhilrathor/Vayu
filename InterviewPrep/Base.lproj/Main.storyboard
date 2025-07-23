@@ -40,10 +40,10 @@
             </objects>
             <point key="canvasLocation" x="82" y="4"/>
         </scene>
-        <!--Control Transfer Statements View Controller-->
+        <!--Task View Controller-->
         <scene sceneID="vty-Vr-HWX">
             <objects>
-                <viewController id="n4T-tP-SdU" customClass="ControlTransferStatementsViewController" customModule="InterviewPrep" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="n4T-tP-SdU" customClass="TaskViewController" customModule="InterviewPrep" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="f7P-nd-OQ8">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
