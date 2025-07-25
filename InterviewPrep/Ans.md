@@ -295,3 +295,30 @@ You may receive feedback or requests for changes during this process.
 
 Once approved, you can choose to release your app immediately or set a specific release date.
 
+
+##41) design pattern vs architecture pattern?
+Ans.
+
+Design patterns are reusable solutions to common problems that occur within a specific context in software design. They provide a template for how to solve a particular design issue.
+
+Architectural patterns are high-level strategies that define the overall structure and organization of a software system. They provide a blueprint for how different components of a system interact and are organized.
+
+##43) what is difference between library vs framework?
+Ans.
+
+Libraries and frameworks are both collections of reusable code, but they differ in their scope, how they are used, and most importantly, the flow of control within an application.
+
+library
+A library is a collection of reusable code (functions, classes, etc.) that you can call in your app.
+Example:
+
+* Alamofire (networking library)
+* CryptoKit
+* libz.dylib (zlib compression)
+
+Framework
+A framework is a complete packaged module that contains:
+
+* A library
+* Resources (like images, storyboards)
+* Metadata
