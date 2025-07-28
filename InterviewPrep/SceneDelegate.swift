@@ -36,20 +36,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //            self.window = window
 //            window.makeKeyAndVisible()
         
-//        guard let windowScene = scene as? UIWindowScene else { return }
+        guard let windowScene = scene as? UIWindowScene else { return }
 //                
 //                // Create a new window
-//        window = UIWindow(windowScene: windowScene)
-//                
-//                // Create the SwiftUI view
-//                let contentView = TaskView()
-//                
-//                // Create a hosting controller
-//                let hostingController = UIHostingController(rootView: contentView)
-//                
-//                // Set the root view controller
-//                window?.rootViewController = hostingController
-//                window?.makeKeyAndVisible()
+        window = UIWindow(windowScene: windowScene)
+                
+                // Create the SwiftUI view
+                let contentView = LoginView()
+                
+                // Create a hosting controller
+                let hostingController = UIHostingController(rootView: contentView)
+                
+                // Set the root view controller
+                window?.rootViewController = hostingController
+                window?.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
