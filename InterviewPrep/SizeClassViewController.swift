@@ -20,6 +20,27 @@
 
  * Compact width / Compact height
  
+ 
+ 52) What is Debounce and Throttling in iOS?
+ Ans.
+ 
+ Debounce waits for user to stop triggering an event before running the function, while Throttling limits the function to run only once every fixed interval.
+ 
+ Used when: You only want to run once after the user stops typing or triggering.
+ 
+ 🛠 Example Use Case:
+ Typing in a search bar – call API only after user stops typing for 500ms.
+ 
+ Throttling:
+ 
+ Ensures a function runs at most once in a specified time interval, even if called repeatedly.
+
+ 🧠 Used when: You want to limit execution frequency, not skip it entirely.
+
+ 🛠 Example Use Case:
+ Track scroll events but update UI only every 1 second.
+
+ 
  */
 
 import UIKit
@@ -29,18 +50,41 @@ class SizeClassViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        // Usage
+        let debouncer = Debouncer()
+        debouncer.debounce(delay: 0.5) {
+            print("User stopped typing, make API call.")
+        }
+        
+        // Usage
+        let throttler = Throttler()
+        throttler.throttle(delay: 1.0) {
+            print("Run only once every second even if called repeatedly.")
+        }
     }
     
 
-    /*
-    // MARK: - Navigation
+}
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+class Debouncer {
+    private var workItem: DispatchWorkItem?
+    
+    func debounce(delay: TimeInterval, action: @escaping () -> Void) {
+        workItem?.cancel()
+        workItem = DispatchWorkItem(block: action)
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: workItem!)
     }
-    */
+}
 
+class Throttler {
+    private var isReady = true
+    
+    func throttle(delay: TimeInterval, action: @escaping () -> Void) {
+        guard isReady else { return }
+        isReady = false
+        action()
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+            self.isReady = true
+        }
+    }
 }
