@@ -12,18 +12,31 @@
 			containerPortal = 4140E6582E104E09008CB623 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 4140E65F2E104E09008CB623;
-			remoteInfo = InterviewPrep;
+			remoteInfo = Vayu;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4140E6602E104E09008CB623 /* InterviewPrep.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InterviewPrep.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		414ED9172E3629560087AA8A /* InterviewPrepUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InterviewPrepUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4140E6602E104E09008CB623 /* Vayu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vayu.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		414ED9172E3629560087AA8A /* VayuUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VayuUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		411E15642E53A08200D4BC12 /* Exceptions for "Vayu" folder in "Vayu" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 4140E65F2E104E09008CB623 /* Vayu */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		4140E6622E104E09008CB623 /* Vayu */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				411E15642E53A08200D4BC12 /* Exceptions for "Vayu" folder in "Vayu" target */,
+			);
 			path = Vayu;
 			sourceTree = "<group>";
 		};
@@ -64,8 +77,8 @@
 		4140E6612E104E09008CB623 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4140E6602E104E09008CB623 /* InterviewPrep.app */,
-				414ED9172E3629560087AA8A /* InterviewPrepUITests.xctest */,
+				4140E6602E104E09008CB623 /* Vayu.app */,
+				414ED9172E3629560087AA8A /* VayuUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -73,9 +86,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		4140E65F2E104E09008CB623 /* InterviewPrep */ = {
+		4140E65F2E104E09008CB623 /* Vayu */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4140E6732E104E0A008CB623 /* Build configuration list for PBXNativeTarget "InterviewPrep" */;
+			buildConfigurationList = 4140E6732E104E0A008CB623 /* Build configuration list for PBXNativeTarget "Vayu" */;
 			buildPhases = (
 				4140E65C2E104E09008CB623 /* Sources */,
 				4140E65D2E104E09008CB623 /* Frameworks */,
@@ -88,16 +101,16 @@
 			fileSystemSynchronizedGroups = (
 				4140E6622E104E09008CB623 /* Vayu */,
 			);
-			name = InterviewPrep;
+			name = Vayu;
 			packageProductDependencies = (
 			);
-			productName = InterviewPrep;
-			productReference = 4140E6602E104E09008CB623 /* InterviewPrep.app */;
+			productName = Vayu;
+			productReference = 4140E6602E104E09008CB623 /* Vayu.app */;
 			productType = "com.apple.product-type.application";
 		};
-		414ED9162E3629560087AA8A /* InterviewPrepUITests */ = {
+		414ED9162E3629560087AA8A /* VayuUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 414ED91F2E3629570087AA8A /* Build configuration list for PBXNativeTarget "InterviewPrepUITests" */;
+			buildConfigurationList = 414ED91F2E3629570087AA8A /* Build configuration list for PBXNativeTarget "VayuUITests" */;
 			buildPhases = (
 				414ED9132E3629560087AA8A /* Sources */,
 				414ED9142E3629560087AA8A /* Frameworks */,
@@ -111,11 +124,11 @@
 			fileSystemSynchronizedGroups = (
 				414ED9182E3629560087AA8A /* VayuUITests */,
 			);
-			name = InterviewPrepUITests;
+			name = VayuUITests;
 			packageProductDependencies = (
 			);
-			productName = InterviewPrepUITests;
-			productReference = 414ED9172E3629560087AA8A /* InterviewPrepUITests.xctest */;
+			productName = VayuUITests;
+			productReference = 414ED9172E3629560087AA8A /* VayuUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -151,8 +164,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				4140E65F2E104E09008CB623 /* InterviewPrep */,
-				414ED9162E3629560087AA8A /* InterviewPrepUITests */,
+				4140E65F2E104E09008CB623 /* Vayu */,
+				414ED9162E3629560087AA8A /* VayuUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -194,7 +207,7 @@
 /* Begin PBXTargetDependency section */
 		414ED91E2E3629570087AA8A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 4140E65F2E104E09008CB623 /* InterviewPrep */;
+			target = 4140E65F2E104E09008CB623 /* Vayu */;
 			targetProxy = 414ED91D2E3629570087AA8A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -209,7 +222,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = R7YVRGTR3K;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = InterviewPrep/Info.plist;
+				INFOPLIST_FILE = Vayu/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -220,7 +233,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.akhilesh.InterviewPrep;
+				PRODUCT_BUNDLE_IDENTIFIER = com.akhilesh.Vayu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -237,7 +250,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = R7YVRGTR3K;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = InterviewPrep/Info.plist;
+				INFOPLIST_FILE = Vayu/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -248,7 +261,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.akhilesh.InterviewPrep;
+				PRODUCT_BUNDLE_IDENTIFIER = com.akhilesh.Vayu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -385,12 +398,12 @@
 				DEVELOPMENT_TEAM = R7YVRGTR3K;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.akhilesh.InterviewPrepUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.akhilesh.VayuUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = InterviewPrep;
+				TEST_TARGET_NAME = Vayu;
 			};
 			name = Debug;
 		};
@@ -402,12 +415,12 @@
 				DEVELOPMENT_TEAM = R7YVRGTR3K;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.akhilesh.InterviewPrepUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.akhilesh.VayuUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = InterviewPrep;
+				TEST_TARGET_NAME = Vayu;
 			};
 			name = Release;
 		};
@@ -423,7 +436,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4140E6732E104E0A008CB623 /* Build configuration list for PBXNativeTarget "InterviewPrep" */ = {
+		4140E6732E104E0A008CB623 /* Build configuration list for PBXNativeTarget "Vayu" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4140E6742E104E0A008CB623 /* Debug */,
@@ -432,7 +445,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		414ED91F2E3629570087AA8A /* Build configuration list for PBXNativeTarget "InterviewPrepUITests" */ = {
+		414ED91F2E3629570087AA8A /* Build configuration list for PBXNativeTarget "VayuUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				414ED9202E3629570087AA8A /* Debug */,

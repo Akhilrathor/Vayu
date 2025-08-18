@@ -1,13 +1,13 @@
 //
-//  InterviewPrepUITestsLaunchTests.swift
-//  InterviewPrepUITests
+//  VayuUITestsLaunchTests.swift
+//  VayuUITests
 //
 //  Created by Akhilesh Rathor on 27/07/25.
 //
 
 import XCTest
 
-final class InterviewPrepUITestsLaunchTests: XCTestCase {
+final class VayuUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true

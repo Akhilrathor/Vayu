@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  InterviewPrep
+//  Vayu
 //
 //  Created by Akhilesh Rathor on 28/06/25.
 //

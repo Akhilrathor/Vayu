@@ -1,6 +1,6 @@
 //
 //  SyncAsyncViewController.swift
-//  InterviewPrep
+//  Vayu
 //
 //  Created by Akhilesh Rathor on 24/07/25.
 //

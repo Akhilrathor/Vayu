@@ -1,6 +1,6 @@
 //
 //  UserViewModel.swift
-//  InterviewPrep
+//  Vayu
 //
 //  Created by Akhilesh Rathor on 10/07/25.
 //
