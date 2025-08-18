@@ -21,28 +21,15 @@
 		414ED9172E3629560087AA8A /* InterviewPrepUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InterviewPrepUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		4140E6722E104E0A008CB623 /* Exceptions for "InterviewPrep" folder in "InterviewPrep" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = 4140E65F2E104E09008CB623 /* InterviewPrep */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		4140E6622E104E09008CB623 /* InterviewPrep */ = {
+		4140E6622E104E09008CB623 /* Vayu */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				4140E6722E104E0A008CB623 /* Exceptions for "InterviewPrep" folder in "InterviewPrep" target */,
-			);
-			path = InterviewPrep;
+			path = Vayu;
 			sourceTree = "<group>";
 		};
-		414ED9182E3629560087AA8A /* InterviewPrepUITests */ = {
+		414ED9182E3629560087AA8A /* VayuUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = InterviewPrepUITests;
+			path = VayuUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -68,8 +55,8 @@
 		4140E6572E104E09008CB623 = {
 			isa = PBXGroup;
 			children = (
-				4140E6622E104E09008CB623 /* InterviewPrep */,
-				414ED9182E3629560087AA8A /* InterviewPrepUITests */,
+				4140E6622E104E09008CB623 /* Vayu */,
+				414ED9182E3629560087AA8A /* VayuUITests */,
 				4140E6612E104E09008CB623 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -99,7 +86,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				4140E6622E104E09008CB623 /* InterviewPrep */,
+				4140E6622E104E09008CB623 /* Vayu */,
 			);
 			name = InterviewPrep;
 			packageProductDependencies = (
@@ -122,7 +109,7 @@
 				414ED91E2E3629570087AA8A /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				414ED9182E3629560087AA8A /* InterviewPrepUITests */,
+				414ED9182E3629560087AA8A /* VayuUITests */,
 			);
 			name = InterviewPrepUITests;
 			packageProductDependencies = (
@@ -150,7 +137,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 4140E65B2E104E09008CB623 /* Build configuration list for PBXProject "InterviewPrep" */;
+			buildConfigurationList = 4140E65B2E104E09008CB623 /* Build configuration list for PBXProject "Vayu" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -427,7 +414,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		4140E65B2E104E09008CB623 /* Build configuration list for PBXProject "InterviewPrep" */ = {
+		4140E65B2E104E09008CB623 /* Build configuration list for PBXProject "Vayu" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4140E6762E104E0A008CB623 /* Debug */,
