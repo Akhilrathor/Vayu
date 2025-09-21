@@ -37,17 +37,17 @@ Would you like a use-case based question example for this topic?
 
 2)  what is difference between subclass SOAP and REST?(API)
 
-| Category            | SOAP                                                                 | REST                                                                       |
-|---------------------|----------------------------------------------------------------------|----------------------------------------------------------------------------|
-| **Stands for**      | Simple Object Access Protocol                                        | Representational State Transfer                                            |
-| **What is it?**     | SOAP is a protocol for communication <br> between applications       | REST is an architecture style <br> for designing communication             |
-| **Design**          | SOAP API exposes the operation.                                      | REST API exposes the data.                                                 |
-| **Transport Protocol** | SOAP is independent and can work <br> with any transport protocol. | REST works only with HTTPS.                                                |
-| **Data format**     | SOAP supports only XML <br> data exchange.                           | REST supports XML, JSON, <br> plain text.                                  |
-| **Performance**     | SOAP messages are larger, <br> which makes communication slower.     | REST has faster performance due to <br> smaller messages and caching.      |
-| **Scalability**     | SOAP is difficult to scale. <br> The server maintains state by <br> storing all previous messages. | REST is easy to scale. <br> It’s stateless, so every message <br> is processed independently. |
-| **Security**        | SOAP supports encryption <br> with additional overheads.             | REST supports encryption <br> without affecting performance.               |
-| **Use case**        | SOAP is useful in legacy applications <br> and private APIs.         | REST is useful in modern applications <br> and public APIs.                |
+| Category            | SOAP                                                            | REST                                                                       |
+|---------------------|-----------------------------------------------------------------|----------------------------------------------------------------------------|
+| **Stands for**      | Simple Object Access Protocol                                   | Representational State Transfer                                            |
+| **What is it?**     | SOAP is a protocol for communication between applications       | REST is an architecture style for designing communication             |
+| **Design**          | SOAP API exposes the operation.                                 | REST API exposes the data.                                                 |
+| **Transport Protocol** | SOAP is independent and can work with any transport protocol.| REST works only with HTTPS.                                                |
+| **Data format**     | SOAP supports only XML data exchange.                           | REST supports XML, JSON, plain text.                                  |
+| **Performance**     | SOAP messages are larger, which makes communication slower.     | REST has faster performance due to smaller messages and caching.      |
+| **Scalability**     | SOAP is difficult to scale. The server maintains state by storing all previous messages. | REST is easy to scale. It’s stateless, so every message is processed independently. |
+| **Security**        | SOAP supports encryption with additional overheads.             | REST supports encryption without affecting performance.               |
+| **Use case**        | SOAP is useful in legacy applications and private APIs.         | REST is useful in modern applications and public APIs.                |
 
 
 3) what is idempotency?
@@ -2205,5 +2205,188 @@ Cocoa Touch is a framework for building iOS, iPadOS, watchOS, and tvOS apps.
 * Built on top of Cocoa
 * Uses UIKit, Foundation, CoreAnimation, etc.
 * Supports touch, gestures, motion, multitouch
+
+
+##68) deep linking and universal linking in ios?
+Ans.
+
+•   Deep Linking: Opening an app to specific content via a special link—traditionally using a custom URL scheme (e.g.,  myapp://item/1 ).
+•   Universal Links: Apple’s secure deep linking: a standard HTTPS URL (e.g.,  https://example.com/item/1 ) that opens the app if installed, or the relevant web page if not.
+
+Why the Distinction Matters
+
+•  Custom URL schemes are quick to set up but lack security and fallback. Any app can hijack the scheme, and there’s no seamless user experience if the app isn’t installed.
+•  Universal Links provide a seamless, secure, and standardized experience. They’re verified through the AASA file on your server, work across web and app, and never show the “Open in App?” dialog. If the app isn’t installed, users just land on your website.
+
+
+## 69) class vs structure?
+Ans.
+
+In Swift, classes are reference types stored on the heap, where multiple variables can point to the same instance, and changes reflect everywhere.
+Structures (structs) are value types stored on the stack (or optimized storage), meaning each assignment creates a new copy and mutations don’t affect the original.
+Classes support features like inheritance, deinitializers, and identity checks, while structs are lightweight, thread-safe, and preferred for modeling simple, immutable data.
+
+struct UserStruct {
+    var name: String
+}
+
+class UserClass {
+    var name: String
+    init(name: String) { self.name = name }
+}
+
+var s1 = UserStruct(name: "Alice")
+var s2 = s1
+s2.name = "Bob"
+print(s1.name) // "Alice" -> independent copy
+
+var c1 = UserClass(name: "Alice")
+var c2 = c1
+c2.name = "Bob"
+print(c1.name) // "Bob" -> shared reference
+
+Interview Q&A
+
+Q1. What are the key differences between class and struct in Swift?
+👉 Structs are value types, copied on assignment, don’t support inheritance, and are generally faster.
+👉 Classes are reference types, use ARC, support inheritance, identity checks (===), and deinitializers.
+
+Q2. When would you prefer struct over class?
+👉 Use structs when modeling small, immutable, and independent data (like CGSize, Date, or DTOs).
+👉 Use classes when you need inheritance, polymorphism, or shared mutable state.
+
+Q3. How does memory management differ?
+👉 Structs: allocated on the stack (or inline), no ARC overhead, copied on mutation.
+👉 Classes: allocated on the heap, managed by ARC, may cause retain cycles if not handled.
+
+Q4. Can structs conform to protocols like classes?
+👉 Yes, both can conform to Swift protocols. But only classes can adopt @objc protocols, support identity (===), and have deinitializers.
+
+
+## Q. 71) what is difference between in Self(uppercase) vs self(lowercase)?
+Ans.
+
+
+self (lowercase) is a reference to the current instance of a class, struct, or enum. You use it to access properties, methods, or to distinguish between parameter names and property names.
+
+Self (uppercase) refers to the type itself, not an instance. It’s commonly used in protocols, generic constraints, and for returning the current type in methods (like factory patterns or static methods).
+
+
+class Person {
+    var name: String
+    
+    init(name: String) {
+        self.name = name   // 'self' differentiates property from parameter
+    }
+    
+    func clone() -> Self {   // 'Self' returns the type of the current instance
+        return Self(name: self.name)
+    }
+}
+
+let p1 = Person(name: "Alice")
+let p2 = p1.clone()
+print(p2.name) // Alice
+
+Interview Q&A
+
+Q1. When do you need to use self explicitly?
+👉 When a parameter or local variable has the same name as a property, or to clarify you’re referring to the instance.
+
+Q2. Where is Self used?
+👉 In protocols and class/struct methods that need to refer to the type itself, especially for factory methods or returning the same type.
+
+Q3. Can Self be used in structs or enums?
+👉 Yes, Self always refers to the type itself, regardless of whether it’s a struct, enum, or class.
+
+Q4. Difference in protocols:
+protocol Clonable {
+    func clone() -> Self
+}
+
+
+## Q. 72) what is generic in Swift?
+Ans.
+
+Generics allow you to write flexible, reusable functions, types, and methods that work with any data type, while maintaining type safety.
+Instead of duplicating code for each type, generics let you parameterize types, making your code cleaner, safer, and more maintainable.
+
+func swapValues<T>(_ a: inout T, _ b: inout T) {
+    let temp = a
+    a = b
+    b = temp
+}
+
+var x = 5
+var y = 10
+swapValues(&x, &y)
+print(x, y) // 10 5
+
+var a = "Hello"
+var b = "World"
+swapValues(&a, &b)
+print(a, b) // World Hello
+
+Interview Q&A
+
+Q1. Why use generics instead of Any?
+👉 Generics are type-safe at compile time, while Any requires casting and is error-prone.
+
+Q2. Can protocols be used with generics?
+👉 Yes, using protocol constraints:
+
+func printValue<T: CustomStringConvertible>(_ value: T) {
+    print(value.description)
+}
+
+
+Q3. What’s the difference between generic functions and generic types?
+👉 Generic functions allow any type in a function call.
+👉 Generic types (struct/class/enum) allow any type in their definition.
+
+Q4. How are generics used in Swift standard library?
+👉 Collections (Array<T>, Dictionary<Key, Value>, Set<T>) and algorithms (map, filter, reduce) are heavily generic-based.
+
+
+##Q. 73) what is associated type in Swift?
+Ans.
+
+An associated type in Swift is a placeholder type used in a protocol. It allows a protocol to define a type without specifying exactly what it is, letting conforming types decide the concrete type.
+Associated types are particularly useful for generic-like behavior in protocols, enabling flexibility while preserving type safety.
+
+protocol Container {
+    associatedtype Item
+    var items: [Item] { get set }
+    mutating func append(_ item: Item)
+}
+
+struct IntStack: Container {
+    typealias Item = Int   // Concrete type defined
+    var items: [Int] = []
+    
+    mutating func append(_ item: Int) {
+        items.append(item)
+    }
+}
+
+var stack = IntStack()
+stack.append(10)
+stack.append(20)
+print(stack.items) // [10, 20]
+
+Interview Q&A
+
+Q1. How is associated type different from generics?
+👉 Generics are defined on functions or types and used at call/initialization time.
+👉 Associated types are defined inside protocols; conforming types decide the concrete type.
+
+Q2. Can protocols with associated types be used as a type directly?
+👉 No. They are “PATs” (Protocol with Associated Type). You can’t write let x: Container directly. You need generics or type erasure.
+
+Q3. Example of standard library usage?
+👉 Sequence protocol has associatedtype Element. Arrays, Sets, and Dictionaries conform by defining Element automatically.
+
+Q4. What is type erasure in this context?
+👉 Type erasure wraps a PAT so it can be used as a concrete type. For example, AnySequence<Element> wraps a Sequence to hide its concrete type.
 
 
