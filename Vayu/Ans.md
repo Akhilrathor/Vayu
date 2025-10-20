@@ -2390,3 +2390,172 @@ Q4. What is type erasure in this context?
 👉 Type erasure wraps a PAT so it can be used as a concrete type. For example, AnySequence<Element> wraps a Sequence to hide its concrete type.
 
 
+
+## Q. 75) what is delegate?
+Ans
+
+// 1. The Protocol (Delegate)
+protocol MyCustomViewDelegate: AnyObject {
+    func didTapButton()
+}
+
+// 2. The Delegating Object
+class MyCustomView: UIView {
+    weak var delegate: MyCustomViewDelegate?
+
+    @objc func buttonTapped() {
+        // 5. The delegating object notifies its delegate
+        delegate?.didTapButton()
+    }
+}
+
+// 3. The Delegate Object (conforms to the protocol)
+class MyViewController: UIViewController, MyCustomViewDelegate {
+
+    let customView = MyCustomView()
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // 4. Assign the delegate
+        customView.delegate = self
+    }
+
+    // 3. Implements the delegate method
+    func didTapButton() {
+        print("Button was tapped inside the custom view!")
+        // Handle the event from the custom view
+    }
+}
+
+Interview Questions and Answers:
+
+1. What problem does the delegate pattern solve?
+It decouples code, allowing one object to delegate responsibilities to another without needing explicit knowledge of that object's implementation.
+
+2. Why should delegate properties be declared weak?
+To avoid strong reference cycles (retain cycles) and prevent memory leaks, especially when delegates are typically view controllers.
+
+3. Where is the delegate pattern used in iOS frameworks?
+Common examples include UITableViewDelegate, UITextFieldDelegate, and UICollectionViewDelegate for handling user interactions.
+
+4. How does the delegate pattern differ from observers or closures?
+Delegates create a strict one-to-one relationship and define a clear contract through protocols, while observers enable one-to-many communication and closures are inline, single-use callback blocks.
+
+
+## Q. 77) difference between Swift 4 , Swift 5 and Swift 6?
+Ans
+
+Here is a concise, point-wise comparison highlighting key differences between Swift 4, Swift 5, and Swift 6:
+
+Swift 4
+* Introduced significant stability improvements over Swift 3.
+
+* Added Codable protocol for easy JSON encoding and decoding.
+
+* Improved string handling with enhanced Unicode and extended grapheme cluster support.
+
+* Improved dictionary & set algorithms for better performance.
+
+* Enhanced keypaths for strongly typed, key-path expressions.
+
+* Focused on source compatibility without breaking existing Swift 3 code.
+
+Swift 5
+* Introduced ABI (Application Binary Interface) stability, enabling smaller app sizes and better compatibility.
+
+* Added Result type for standardized error handling.
+
+* Introduced new string interpolation API for customizable string interpolation.
+
+* Improved Compiler diagnostics and performance.
+
+* Added raw strings syntax, dynamic callable types, and @dynamicCallable.
+
+* Introduced property wrappers to simplify state management (Swift 5.1+).
+
+* Added concurrency features like async/await (in Swift 5.5).
+
+* Binary framework stability allowing Swift libraries to be embedded and reused without recompilation.
+
+Swift 6 (Major Milestone)
+* Focuses heavily on strict concurrency enforcement and eliminating data races.
+
+* Requires explicit await keyword for calling actor methods to prevent race conditions.
+
+* Introduces typed throws allowing functions to declare specific error types they throw.
+
+* Added support for regex literals simplifying pattern matching without verbose API calls.
+
+* Introduced noncopyable types to control data copying and transfer ownership, enhancing safety especially for sensitive data.
+
+* Stricter compiler rules for concurrency and actor isolation leading to safer, more predictable asynchronous code.
+
+* Swift 6 brings the culmination of incremental improvements from Swift 5.x series, turning them into enforced language rules.
+
+* Migration to Swift 6 can generate many warnings/errors due to stricter rules, requiring codebase adjustments.
+
+
+
+## Q. 78) why Swift is protocol oriented and objective c is not?
+Ans
+
+Swift is called a Protocol-Oriented Programming (POP) language because protocols are the primary way to define behavioral blueprints, and Swift allows default implementations, extensions, protocol composition, and generics with associated types.
+Objective-C, on the other hand, is primarily Object-Oriented, where classes and inheritance are the main abstraction tools, and protocols are only used as optional “contracts” without default implementations.
+
+In Objective-C (protocols are limited):
+
+* Protocols can only declare method signatures.
+
+* No default implementation → every conforming class must implement all methods.
+
+* Multiple inheritance is not supported, and protocols don’t help with code reuse.
+
+
+In Swift (protocol-oriented features):
+
+* Protocols can define properties + methods.
+
+* Protocol extensions allow default implementations.
+
+* Supports protocol composition (A & B), associated types, and works seamlessly with generics.
+
+* Promotes composition over inheritance, avoiding class hierarchies.
+
+Q1. Why is Swift called Protocol-Oriented Programming language?
+👉 Because it emphasizes protocols as the primary abstraction instead of class inheritance. Protocols define what a type should do, and extensions can provide how. This enables flexible code reuse, avoids deep hierarchies, and encourages composition.
+
+Q2. Why isn’t Objective-C protocol-oriented?
+👉 Objective-C protocols cannot provide default implementations. They only declare methods, leaving implementations entirely to conforming classes. This makes protocols weaker compared to Swift, where protocols are first-class citizens with extensions, generics, and associated types.
+
+Q3. What’s the advantage of protocol-oriented over class inheritance?
+👉 Protocols allow multiple conformance (a struct can conform to many protocols), promote composition over inheritance, reduce tight coupling, and work with value types (structs/enums) — which classes/inheritance cannot do efficiently.
+
+Q4. Give a real iOS framework example of protocol-oriented design.
+👉 UITableViewDataSource and UITableViewDelegate are protocol-based. In Swift, they can even have default implementations via extensions, reducing boilerplate code.
+
+
+
+## Q. 80) what is hierarchy of uibutton in ios?
+Ans.
+
+In UIKit, every UI component is part of the UIView hierarchy. UIButton is a subclass of UIControl, which itself is a subclass of UIView. This hierarchy gives UIButton all the behaviors of a view (layout, drawing) and control (handling touch events).
+
+NSObject  
+   ↳ UIResponder  
+        ↳ UIView  
+             ↳ UIControl  
+                  ↳ UIButton
+                  
+
+* NSObject → Base class for most Objective-C classes.
+
+* UIResponder → Adds event-handling (touches, gestures, motion).
+
+* UIView → Provides drawing, layout, animations.
+
+* UIControl → Adds target–action mechanism for user interactions.
+
+* UIButton → A concrete subclass for tap-able buttons with title, image, and state.
+
+
+
