@@ -28,24 +28,25 @@
 
  This way, ARC (Automatic Reference Counting) will deallocate the instance when you remove all references.
  
- 
  */
 
 import UIKit
 
 class SingletonViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Usage
-       let manager = NetworkManager.shared
+        let manager = NetworkManager.shared
         manager?.fetchData()
         
         // Deallocate
         NetworkManager.shared = nil   // ARC releases memory here
+        // Accessing the Singleton instance
+        MySingleton.shared.doSomething()
     }
-
+    
 }
 
 class NetworkManager {
@@ -59,3 +60,18 @@ class NetworkManager {
     }
 }
 
+class MySingleton {
+    // 1. Static property to hold the single instance
+    static let shared = MySingleton()
+
+    // 2. Private initializer to prevent external instantiation
+    private init() {
+        // Initialization code (e.g., loading configuration, setting up a logger)
+        print("MySingleton instance initialized.")
+    }
+
+    // Example method
+    func doSomething() {
+        print("MySingleton is doing something.")
+    }
+}

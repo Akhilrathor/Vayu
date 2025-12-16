@@ -118,3 +118,20 @@
 117) what is actor. And difference between actor and class.
 118) opaque type in Swift?
 119) what combine frame?
+
+
+Extra:
+
+1. class vs struct?
+2. associate value and associate type
+3. what are the closures?
+4. var list = [2,2,4,4,4,4,3,3,5,6,6,5,5]
+5. state in swiftui
+6. optional chaining
+7. if let & guard let
+8. optional method in protocol
+9. what is defer?
+10. self vs Self
+11. what is opaque type?
+12. Coredata vs SQLite?
+

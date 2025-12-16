@@ -1,4 +1,5 @@
 1) what is difference between subclass & extension?
+74) what is extension?
 
 In iOS Swift, subclass and extension are both used to add or change functionality, but they work differently.
 👉 Subclass:
@@ -33,6 +34,44 @@ Main Difference:
 Subclass = Inherit and customize
 Extension = Add functionality without changing the original class
 Would you like a use-case based question example for this topic?
+
+An extension in Swift is a feature that allows you to add new functionality (methods, computed properties, initializers, etc.) to an existing class, structure, enumeration, or protocol without modifying or subclassing the original source code. It promotes code reusability, organization, and adherence to the Open-Closed Principle. In Objective-C, the equivalent is called a category, which serves a similar purpose but is limited to classes.
+
+
+Example:
+extension Int {
+    func squared() -> Int {
+        return self * self
+    }
+
+    var isEven: Bool {
+        return self % 2 == 0
+    }
+}
+
+let number = 8
+print(number.squared()) // Output: 64
+print(number.isEven)    // Output: true
+
+
+
+1. Differences between Swift extensions and Objective-C categories:
+Swift extensions work at compile-time, support structs/enums/protocols (not just classes), and allow computed properties/subscripts. Objective-C categories are runtime-based, limited to classes, and can lead to method conflicts if not careful. Extensions are safer for modern SwiftUI/Combine apps, while categories are useful for extending legacy Objective-C code without recompiling.
+
+2. Adding stored properties to extensions:
+No, you cannot add stored properties directly to extensions as they don't own the type's storage. Workarounds include using a private wrapper class with the property and an extension method to access it, or associated objects via objc_setAssociatedObject (runtime hack, less recommended in pure Swift). For example, in networking, use a computed property that fetches from UserDefaults.
+
+3. Extensions in protocol-oriented programming:
+Extensions provide default implementations for protocol methods, encouraging composition over inheritance. Example: Extend Equatable for a custom Point struct to auto-generate == operator. This is powerful in SwiftUI for reusable view traits or in Combine for custom publishers.
+
+4. Pitfalls and best practices:
+Pitfalls: Over-extending system types can cause naming conflicts or bloat; extensions aren't discoverable like subclasses. Best practices: Use one extension per feature (e.g., String+Validation), document them, avoid in tight loops for performance, and prefer them for protocol conformance in team projects to keep code modular and testable.
+
+5. Extensions with Swift Concurrency:
+You can add async methods to existing types, e.g., extending URLSession with func loadAsync(url: URL) async throws -> Data. This bridges legacy networking to async/await in iOS 17+, improving readability without rewriting APIs. Ensure error handling with throws and test for cancellation.
+
+
+
 
 
 2)  what is difference between subclass SOAP and REST?(API)
@@ -2206,7 +2245,33 @@ Cocoa Touch is a framework for building iOS, iPadOS, watchOS, and tvOS apps.
 * Uses UIKit, Foundation, CoreAnimation, etc.
 * Supports touch, gestures, motion, multitouch
 
+##55) URL session all concept?
+Ans.
 
+A URL session is a mechanism that allows an application to send and receive data over the internet using URLs. It manages the transfer of data between the client (your application) and the server.
+
+Components of a URL:-
+A URL (Uniform Resource Locator) consists of several components:
+
+Scheme: Indicates the protocol (e.g., http, https, ftp).
+Host: The domain name or IP address of the server (e.g., www.example.com).
+Port: The port number (optional, default is 80 for HTTP and 443 for HTTPS).
+Path: The specific resource on the server (e.g., /api/data).
+Query: A set of key-value pairs for parameters (e.g., ?id=123&sort=asc).
+Fragment: A reference to a specific part of the resource (e.g., #section1).
+
+Making Requests:-
+You can make various types of HTTP requests using URL sessions:
+
+GET: Retrieve data from a server.
+POST: Send data to a server.
+PUT: Update existing data on a server.
+DELETE: Remove data from a server.
+
+let task = URLSession.shared.dataTask(with: url) { data, response, error in
+    // Handle response
+}
+task.resume()
 ##68) deep linking and universal linking in ios?
 Ans.
 
@@ -2390,7 +2455,6 @@ Q4. What is type erasure in this context?
 👉 Type erasure wraps a PAT so it can be used as a concrete type. For example, AnySequence<Element> wraps a Sequence to hide its concrete type.
 
 
-
 ## Q. 75) what is delegate?
 Ans
 
@@ -2558,4 +2622,524 @@ NSObject
 * UIButton → A concrete subclass for tap-able buttons with title, image, and state.
 
 
+## Q. 90) How many ways can you store data locally in iOS (Swift)?
+Ans.
+
+In iOS, data can be stored locally in several ways depending on:
+* the type of data (small user settings vs. structured records),
+* security requirements, and
+* persistence needs (temporary vs. permanent).
+There are five primary ways to store data locally in Swift:
+
+1️⃣ UserDefaults
+Use Case: Store small, lightweight user preferences (like theme, flags, login state).
+Storage Type: Key–Value pair storage.
+Persists: Across app launches.
+
+Example:
+UserDefaults.standard.set(true, forKey: "isLoggedIn")
+let loggedIn = UserDefaults.standard.bool(forKey: "isLoggedIn")
+
+Pros: Simple, persistent, easy to use.
+Cons: Not secure, not for sensitive or large data.
+
+2️⃣ Keychain
+Use Case: Securely store sensitive information (tokens, passwords, certificates).
+Storage Type: Encrypted system-managed storage.
+
+Example:
+import Security
+
+let password = "MySecret123"
+let key = "userPassword"
+
+let data = password.data(using: .utf8)!
+let query: [String: Any] = [
+    kSecClass as String: kSecClassGenericPassword,
+    kSecAttrAccount as String: key,
+    kSecValueData as String: data
+]
+SecItemAdd(query as CFDictionary, nil)
+
+Pros: Secure, encrypted by iOS, survives app reinstalls (if same keychain access group).
+Cons: Complex API, slower than UserDefaults.
+
+3️⃣ File System (Documents / Caches Directory)
+Use Case: Store custom files like JSON, images, PDFs, or logs.
+Storage Type: File-based.
+
+Example:
+let fileManager = FileManager.default
+let url = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
+let fileURL = url.appendingPathComponent("data.txt")
+
+try? "Hello iOS".write(to: fileURL, atomically: true, encoding: .utf8)
+
+Pros: Flexible for structured or unstructured data.
+Cons: Must handle security, data consistency, and size limits manually.
+
+4️⃣ Core Data
+Use Case: Store relational or structured data (like user profiles, transactions).
+Storage Type: Object graph + SQLite database under the hood.
+
+Example (Simple Insert):
+let entity = NSEntityDescription.insertNewObject(forEntityName: "User", into: context)
+entity.setValue("Akhilesh", forKey: "name")
+try? context.save()
+
+Pros: Fast, supports relationships, queries, and migrations.
+Cons: Learning curve, not ideal for lightweight or simple key–value storage.
+
+5️⃣ SQLite / Realm / Third-party Databases
+Use Case: Custom database handling with manual SQL or simpler ORMs.
+Storage Type: Disk-based database.
+
+Example (SQLite using FMDB or raw C APIs):
+import SQLite3
+// Open DB, create table, insert rows manually using SQL queries
+
+Pros: Fine-grained control, performant for large datasets.
+Cons: Manual management, higher complexity.
+
+Realm Example:
+class User: Object {
+    @Persisted var name: String
+}
+
+let realm = try! Realm()
+let user = User()
+user.name = "Akhilesh"
+try! realm.write {
+    realm.add(user)
+}
+
+
+## Q. 93) What are inout parameters in Swift?
+Ans.
+
+inout parameters allow a function in Swift to modify the original variable passed into it, not just a local copy.
+They provide pass-by-reference behavior instead of Swift’s normal pass-by-value.
+
+❌ Without inout (won’t modify original)
+
+    func increment(_ number: Int) {
+    var number = number
+    number += 1
+    }
+
+    var value = 10
+    increment(value)
+    print(value) // 10 (unchanged)
+
+✅ With inout (modifies original)
+    
+    func increment(_ number: inout Int) {
+    number += 1
+    }
+
+    var value = 10
+    increment(&value)
+    print(value) // 11
+
+
+## 94) what is defer in Swift and how it’s work?
+Ans.
+
+The defer statement in Swift schedules a block of code to execute automatically just before exiting the current scope (function, loop, or block), regardless of how the exit occurs—via return, break, continue, throw, or natural end.
+
+Example:
+
+    func test() {
+    defer {
+        print("Outer defer start")
+
+        defer {
+            print("Inner defer")
+        }
+
+        print("Outer defer end")
+    }
+
+    print("Function body")
+    }
+
+Output:
+
+    Function body
+    Outer defer start
+    Outer defer end
+    Inner defer
+
+
+## Q. 95) what is copy on write in Swift?
+Ans.
+
+Copy-On-Write (COW) is an optimization technique used in Swift where a copy of a value type (like Array, Dictionary, Set, String) is only created when you attempt to modify it, and only if it is shared with another variable.
+    
+Meaning:
+    
+    Swift does NOT immediately duplicate memory when you assign a value type. It delays the copy until a write (mutation) happens.This saves memory and improves performance.
+    
+Swift value types (like Arrays/Structs) behave like they copy on assignment:
+    
+    var a = [1, 2, 3]
+    var b = a   // looks like a copy
+
+But Swift does NOT copy the array here.
+Both a and b share the same underlying storage until one of them is changed.
+    
+4. Example of COW Behavior
+
+    var a = [1, 2, 3]
+    var b = a   // No real copy yet (shared storage)
+
+    // Mutate 'b'
+    b.append(4)    // Real copy happens here (write operation)
+
+    print(a)  // [1, 2, 3]
+    print(b)  // [1, 2, 3, 4]
+    
+
+## Q. 96) what is access controler?
+Ans.
+
+Access Control in Swift is a mechanism that restricts how properties, methods, classes, structs, enums, and other entities can be accessed from different parts of your code.
+
+It helps you:
+    
+    * Encapsulate implementation details
+    * Hide internal logic
+    * Prevent unwanted usage
+    * Maintain clean module boundaries
+    
+Access Levels in Swift:
+
+1. open (Most permissive)
+    
+    * Allows access and subclassing/overriding outside the module.
+    * Used mainly in frameworks (like UIKit, SwiftUI).
+
+2. public
+    
+    * Accessible outside the module
+    * ❌ Cannot be subclassed or overridden outside the module
+    * Framework APIs usually use this
+    
+3. internal (Default)
+
+    * Accessible anywhere within the same module
+    * Not visible outside
+    * Most app code uses this level
+    
+4. fileprivate
+
+    * Accessible only inside the same file
+    
+5. private (Most Restrictive)
+
+    * Accessible only within the same declaration
+    
+Example Showing All Levels
+
+    open class A {}         // Accessible + subclassable anywhere
+    public class B {}       // Accessible anywhere, but no subclass outside module
+    internal class C {}     // Default, only inside module
+    fileprivate class D {}  // Only within this file
+    private class E {}      // Only inside this scope
+
+
+## Q. 97) what is code signing?
+Ans.
+
+Code Signing is a security mechanism used by Apple to verify that an iOS app is created by a trusted developer and has not been modified after being built.
+
+In simple words:
+
+    Code Signing proves your identity to Apple and ensures your app’s integrity and authenticity.It guarantees the app comes from you and the code hasn’t been tampered with.
+    
+iOS is a secure platform. Apple does NOT allow apps to run unless:
+
+    1. They are signed with a valid Apple-issued certificate
+    2. They have a matching Provisioning Profile
+    3. The device trusts that certificate
+
+Code signing ensures:
+
+    ✔ Only trusted developers can install apps
+    ✔ Code cannot be altered (prevents hacking/injection)
+    ✔ App belongs to a specific Team/Developer ID
+    ✔ App works only on authorized devices (in development)
+    ✔ Apps can access entitlements securely (Push, Apple Pay, App Groups, Keychain Sharing, etc.)
+    
+    
+## Q. 98) What are the types of Provisioning Profiles in iOS and what are the differences?
+Ans.
+
+ Apple provides four types of provisioning profiles. They determine where and how your app can be installed and run.
+ 
+ ✅ 1. Development Provisioning Profile
+    Purpose:
+        Used for development, debugging, and running apps directly from Xcode on specific registered devices.
+    
+    Key Features:
+    
+       * Allows debugging via Xcode
+       * Requires Developer Certificate
+       * Contains the UDIDs of allowed devices
+       * Grants development entitlements, such as:
+            * Access to Keychain Sharing
+            * Push Notifications (development)
+            * App Groups
+            * Background Modes
+       * Used for writing logs, attaching debugger, breakpoints
+    
+    Used in:
+        
+        Local development
+        Testing on physical devices
+
+✅ 2. Ad Hoc Provisioning Profile
+Purpose:
+    Used to distribute apps outside App Store for testing on a limited set of devices.
+
+Key Features:
+
+    No debugging allowed
+    Uses Distribution Certificate
+    Requires UDIDs of target devices
+    Allows distribution outside App Store (but limited supply)
+    Max 100 devices per device type (iPhone/iPad etc.)
+
+Used in:
+    
+    External client testing
+    QA team testing
+    Beta distributions without TestFlight
+
+✅ 3. App Store Provisioning Profile (Distribution)
+Purpose:
+    Used for submitting apps to the App Store.
+
+Key Features:
+    
+    Uses Distribution Certificate
+    No device UDIDs required
+    No debugging or logging allowed
+    Strict entitlements matching
+    Code signing prepares app for App Store review & distribution
+
+Used in:
+    
+    Building release version for App Store
+    Creating an archive for App Store Connect upload
+
+✅ 4. Enterprise Provisioning Profile (In-House)
+(Available only for Apple Enterprise Program accounts)
+Purpose:
+    Used to distribute internal apps within a company without App Store or UDIDs.
+
+Key Features:
+
+    No device limits
+    No UDIDs required
+    Uses In-House Distribution Certificate
+    Cannot be publicly distributed
+    For internal employees only
+
+Used in:
+    
+    Private internal apps
+    Corporate apps for employees
+    Internal SDK test apps
+
+
+## Q. 99) App state in ios?
+Ans.
+
+App states represent the lifecycle stages an iOS app goes through as the system manages it. They describe whether an app is running, active, inactive, suspended, or not running.
+
+In simple words:
+
+    App State = what the app is doing right now and how much the system allows it to execute.
+    
+    
+The five states are:
+    
+ 1. Not Running: 
+    
+        The app is not running and has either not been launched yet or was terminated by the system or user. It uses no resources in this state.
+    
+ 2. Inactive: 
+        
+        The app is running in the foreground but is not currently receiving events or user input. This is often a brief transitional state (e.g., when an incoming phone call or SMS message appears, or when the user pulls down the Notification Center).
+    
+ 3. Active: 
+    
+        This is the main operational state. The app is in the foreground, visible on screen, and actively receiving events and user interactions.
+    
+ 4. Background: 
+    
+        The app is running in the background and is still executing code, although its UI is no longer visible. Apps typically enter this state when the user taps the Home button or switches to another app. They are given a short amount of time to finish tasks (like saving data) before potentially moving to the next state. Specific apps (like music players or navigation apps) can request permission to run in the background for longer periods.
+    
+ 5. Suspended: 
+    
+        The app is in the background but is no longer executing any code. The system moves the app to this state automatically to conserve battery life and system resources. The app remains in memory so it can launch quickly, but the OS can terminate it at any time without notification if memory is needed for a foreground app.
+        
+
+    class AppDelegate: UIResponder, UIApplicationDelegate {
+        func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+            print("→ Not Running → Active")
+            return true
+        }
+    
+        func applicationWillResignActive(_ application: UIApplication) {
+            print("Active → Inactive")  // Call/Swipe up
+        }
+    
+        func applicationDidEnterBackground(_ application: UIApplication) {
+            print("Inactive → Background")  // Save state here
+        }
+    
+        func applicationWillEnterForeground(_ application: UIApplication) {
+            print("Background → Inactive")
+        }
+    
+        func applicationDidBecomeActive(_ application: UIApplication) {
+            print("Inactive → Active")  // Refresh data
+        }
+    }
+
+## Q. 101) What are strong, copy, and readonly in iOS (Objective-C & Swift)?
+Ans.
+
+    These are property attributes used to control memory management, mutability, and access behavior for properties in Objective-C (and conceptually similar in Swift).
+    
+1. strong (Default for NSObject)
+
+    strong means the property holds a strong reference to the object.As long as this reference exists, the object cannot be deallocated.
+
+Used for:
+    
+    Most object properties
+    Owning relationships
+    Retaining objects
+
+Example
+    
+    @property (nonatomic, strong) NSString *name;
+
+This means:
+
+    Increment retain count
+    Property owns the object
+    Object stays alive as long as this property points to it
+
+2. copy
+    
+    copy creates a new, immutable copy of the object when assigning.Used mainly to protect your property from being changed externally.
+    
+Example with mutable collections:
+
+    NSMutableString *str = [NSMutableString stringWithString:@"Hello"];
+    self.name = str;
+    [str appendString:@" World"];
+
+If property was strong, your name would become "Hello World" — unintended mutation.
+Using copy:
+    
+    @property (nonatomic, copy) NSString *name;
+
+Now self.name = str creates a copy → immutable NSString.
+Changes to the external mutable string do NOT affect your property.
+
+3. readonly
+    Allows reading the property but prevents writing outside the class.
+
+Example
+    
+    @property (nonatomic, readonly) NSString *token;
+
+You can read:
+
+    NSLog(@"%@", self.token);
+
+But you cannot set:
+    
+    self.token = @"123";  // ❌ Error
+
+But inside .m implementation, you can redeclare it as readwrite:
+    
+    @interface MyClass()
+    @property (nonatomic, readwrite) NSString *token;
+    @end
+
+
+## Q. 103) static dispatch vs dynamic dispatch?
+Ans.
+
+Static dispatch resolves method calls at compile-time (faster, direct calls), while dynamic dispatch resolves them at runtime (flexible, supports polymorphism via vtables). In Swift, static uses structs/enums/functions/generics; dynamic uses classes/protocols.
+
+Examples:
+✔ Static Dispatch Example (Struct)
+
+    struct Person {
+        func greet() {
+            print("Hello")
+        }
+    }
+
+    let p = Person()
+    p.greet()    // Static dispatch
+
+Because structs have no inheritance → compiler picks method at compile time.
+
+✔ Dynamic Dispatch Example (Class Inheritance)
+
+    class Animal {
+        func sound() { print("Generic Animal") }
+    }
+
+    class Dog: Animal {
+        override func sound() { print("Bark") }
+    }
+
+    let a: Animal = Dog()
+    a.sound()    // Dynamic dispatch (via v-table)
+
+Compiler waits until runtime to find correct method.
+
+Special Cases in Swift
+
+🟦 final → Static Dispatch
+
+    class A {
+        final func display() { }
+    }
+Cannot be overridden → compiler uses static dispatch.
+
+🟦 Private Methods → Static Dispatch
+Because private methods cannot be overridden.
+
+🟦 @objc dynamic → Dynamic Dispatch via Objective-C runtime
+    
+    @objc dynamic func update() { }
+Forces runtime method lookup (KVO, method swizzling).
+
+🟦 Protocol Requirements
+Depends on conformance:
+Protocol witness table (dynamic dispatch but faster than Objective-C)
+
+    protocol Runnable { func run() }
+
+        struct Car: Runnable {
+            func run() { print("Car running") }
+        }
+Dispatch via witness table, not compile-time static, not Obj-C dynamic — somewhere in between.
+
+/* A V-Table (Virtual Method Table) is a runtime data structure used by Swift (and many OOP languages) to support dynamic dispatch.
+    It stores function pointers for all methods that can be overridden in a class hierarchy.
+
+    In simple words:
+    A V-Table tells Swift which method implementation to call at runtime when using inheritance and overriding. */
+    
 
